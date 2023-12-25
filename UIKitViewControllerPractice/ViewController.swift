@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         configuration.title = "Cambia"
         
         let button = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] action in
-            self?presentCurrentViewController()
+            self?.presentCurrentViewController()
         }))
         
         button.translatesAutoresizingMaskIntoConstraints = false
