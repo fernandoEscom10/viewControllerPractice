@@ -18,13 +18,16 @@ class ViewController: UIViewController {
         configuration.title = "Cambia"
         
         let button = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] action in
-            self?.presentCurrentViewController()
+            //self?.presentCurrentViewController()
+            self?.changeConstraintValue()
         }))
         
         button.translatesAutoresizingMaskIntoConstraints = false
         button.configuration = configuration
         return button
     }()
+    
+    var buttonConstraint: NSLayoutConstraint?
     
     func presentCurrentViewController(){
         self.present(ViewController(), animated: true)
@@ -45,10 +48,22 @@ class ViewController: UIViewController {
         ].randomElement()
         view.addSubview(swiftButton)
         
+        buttonConstraint = swiftButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        
         NSLayoutConstraint.activate([
             swiftButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            swiftButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            buttonConstraint!
         ])
+    }
+    
+    func changeConstraintValue() {
+        view.removeConstraint(buttonConstraint!)
+        buttonConstraint = swiftButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100)
+        NSLayoutConstraint.activate([
+            swiftButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonConstraint!
+        ])
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
