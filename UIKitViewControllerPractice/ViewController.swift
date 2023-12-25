@@ -8,11 +8,47 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    deinit {
+        print("eliminado")
+    }
+    
+    private lazy var swiftButton : UIButton = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.title = "Cambia"
+        
+        let button = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] action in
+            self?presentCurrentViewController()
+        }))
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.configuration = configuration
+        return button
+    }()
+    
+    func presentCurrentViewController(){
+        self.present(ViewController(), animated: true)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         print("1. ViewDidLoad \(self.description)")
+        
+        view.backgroundColor = [
+            .systemRed,
+            .systemBlue,
+            .systemCyan,
+            .systemMint,
+            .systemGray,
+            .systemBrown
+        ].randomElement()
+        view.addSubview(swiftButton)
+        
+        NSLayoutConstraint.activate([
+            swiftButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            swiftButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
